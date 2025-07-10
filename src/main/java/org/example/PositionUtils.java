@@ -1,9 +1,10 @@
 package org.example;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
-
+@Component
 public class PositionUtils {
     static final Map<Character, Integer> letterСoordinate = Map.of(
             'a', 1,

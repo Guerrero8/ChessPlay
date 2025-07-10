@@ -1,8 +1,6 @@
 package org.example;
 
-import org.example.piece.King;
-import org.example.piece.Pawn;
-import org.example.piece.Piece;
+import org.example.piece.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +16,12 @@ public class PlacementControl {
         placePawns();
         placePiece("e1", new King());
         placePiece("e8", new King());
+        placePiece("d1", new Queen());
+        placePiece("d8", new Queen());
+        placePiece("a1", new Rook());
+        placePiece("a8", new Rook());
+        placePiece("h1", new Rook());
+        placePiece("h8", new Rook());
 
         for (Map.Entry<String, Board.Cell> entry : board.getBoard().entrySet()) {
             System.out.println(entry.getKey());

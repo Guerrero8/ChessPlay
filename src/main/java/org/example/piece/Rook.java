@@ -6,14 +6,13 @@ import org.example.PositionUtils;
 
 import java.util.List;
 
-
 @Data
 @NoArgsConstructor
-public class Pawn implements Piece {
+public class Rook implements Piece {
     String color = "White";
     boolean canBypass = false;
 
-    public Pawn(String color) {
+    public Rook(String color) {
         this.color = color;
     }
 
@@ -27,20 +26,35 @@ public class Pawn implements Piece {
         int moveForX = positionX;
         String move;
 
-        moveForY = positionY + 1 * positionUtils.getColorIndexByColor(color);
-        move = "" + positionUtils.getXPositionByIndex(moveForX) + moveForY;
-        potentialMoves.add(move);
+        for (int i = 0; i < 8; i++) {
+            moveForY = positionY;
+            moveForX = positionX;
+            moveForY = positionY + i;
+            move = "" + positionUtils.getXPositionByIndex(moveForX) + moveForY;
+            potentialMoves.add(move);
+        }
+        for (int i = 0; i < 8; i++) {
+            moveForY = positionY;
+            moveForX = positionX;
+            moveForY = positionY - i;
+            move = "" + positionUtils.getXPositionByIndex(moveForX) + moveForY;
+            potentialMoves.add(move);
+        }
+        for (int i = 0; i < 8; i++) {
+            moveForY = positionY;
+            moveForX = positionX;
+            moveForX = positionX + i;
+            move = "" + positionUtils.getXPositionByIndex(moveForX) + moveForY;
+            potentialMoves.add(move);
+        }
+        for (int i = 0; i < 8; i++) {
+            moveForY = positionY;
+            moveForX = positionX;
+            moveForX = positionX - i;
+            move = "" + positionUtils.getXPositionByIndex(moveForX) + moveForY;
+            potentialMoves.add(move);
+        }
 
-        if (positionY == 2 && positionUtils.getColorIndexByColor(color) == 1) {
-            moveForY = positionY + 2 * positionUtils.getColorIndexByColor(color);
-            move = "" + positionUtils.getXPositionByIndex(moveForX) + moveForY;
-            potentialMoves.add(move);
-        }
-        if (positionY == 7 && positionUtils.getColorIndexByColor(color) == -1) {
-            moveForY = positionY + 2 * positionUtils.getColorIndexByColor(color);
-            move = "" + positionUtils.getXPositionByIndex(moveForX) + moveForY;
-            potentialMoves.add(move);
-        }
         potentialMoves.remove(position);
         return potentialMoves;
     }

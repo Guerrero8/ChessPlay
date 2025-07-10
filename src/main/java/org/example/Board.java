@@ -20,9 +20,6 @@ public class Board {
         return board.get(position);
     }
     public void setCell(String position, Cell cell) throws Exception {
-        if (!board.containsKey(position)) {
-            throw new Exception("Клетки " + position + " не существует на доске");
-        }
         board.put(position, cell);
     }
 

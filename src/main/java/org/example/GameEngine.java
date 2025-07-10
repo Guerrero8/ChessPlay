@@ -12,21 +12,24 @@ public class GameEngine {
     String moveTurn = "White";
 
     public void pieceMove(String startPosition, String endPosition) throws Exception {
-
-        if (board.getCell(startPosition).getPiece() == null) {
+        Piece piece = board.getCell(startPosition).getPiece();
+        if (piece == null) {
             System.out.println("На позиции " + startPosition + " нет фигуры");
             return;
         }
-
+        if (!piece.getColor().equals(moveTurn)){
+            System.out.println("Фигура на позиции " + startPosition + " пренадлежит противнику");
+            return;
+        }
         List<String> acceptedMoves = getAcceptedPieceMove(startPosition);
         if (!acceptedMoves.contains(endPosition)) {
             System.out.println("Ход " + endPosition + " не доступен");
             return;
         }
 
-        Piece piece = board.getCell(startPosition).getPiece();
         board.getCell(startPosition).setPiece(null);
         board.getCell(endPosition).setPiece(piece);
+        moveTurn = moveTurn.equals("White") ? "Black" : "White";
     }
 
     public List<String> getAcceptedPieceMove(String position) throws Exception {
