@@ -13,6 +13,20 @@ import java.util.Map;
 public class Board {
     Map<String, Cell> board = new LinkedHashMap<>();
 
+    public Cell getCell(String position) throws Exception {
+        if (!board.containsKey(position)) {
+            throw new Exception("Клетки " + position + " не существует на доске");
+        }
+        return board.get(position);
+    }
+    public void setCell(String position, Cell cell) throws Exception {
+        if (!board.containsKey(position)) {
+            throw new Exception("Клетки " + position + " не существует на доске");
+        }
+        board.put(position, cell);
+    }
+
+
     @Data
     @AllArgsConstructor
     public static class Cell {

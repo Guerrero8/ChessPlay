@@ -13,5 +13,7 @@ public class Main {
         PlacementControl placementControl = context.getBean(PlacementControl.class);
         placementControl.applyDefaultPlacement();
 
+
+
     }
 }

@@ -18,49 +18,48 @@ public class PlacementControl {
         placePawns();
         placePiece("e1", new King());
         placePiece("e8", new King());
-        placePiece("d4", new King());
-        placePiece("c5", new King());
-        placePiece("b4", new King());
 
-        for (Map.Entry<String, Board.Cell> board : board.board.entrySet()) {
-            System.out.println(board.getKey());
-            System.out.println(board.getValue());
+        for (Map.Entry<String, Board.Cell> entry : board.getBoard().entrySet()) {
+            System.out.println(entry.getKey());
+            System.out.println(entry.getValue());
         }
     }
 
-    private void colorizeBoard() {
+    private void colorizeBoard() throws Exception {
         String color = "Black";
         for (int i = 1; i <= 8; i++) {
             for (char j = 'a'; j <= 'h'; j++) {
-                board.board.put("" + j + i, new Board.Cell(color, null));
+                board.setCell("" + j + i, new Board.Cell(color, null));
                 color = color.equals("White") ? "Black" : "White";
             }
         }
     }
+
     private String pieceColor(String position) throws Exception {
-        if (position.charAt(1) <= '4'){
+        if (position.charAt(1) <= '4') {
             return "White";
         }
-        if (position.charAt(1) >= '5'){
+        if (position.charAt(1) >= '5') {
             return "Black";
         }
         throw new Exception("color???");
     }
 
     public void placePawns() throws Exception {
-        String color;
-        for (Map.Entry<String, Board.Cell> board : board.board.entrySet()) {
-            int positionY = Character.getNumericValue(board.getKey().charAt(1));
+        for (Map.Entry<String, Board.Cell> entry : board.getBoard().entrySet()) {
+            int positionY = Character.getNumericValue(entry.getKey().charAt(1));
             if (positionY == 2) {
-                board.getValue().setPiece(new Pawn(pieceColor(board.getKey())));
+                entry.getValue().setPiece(new Pawn(pieceColor(entry.getKey())));
             } else if (positionY == 7) {
-                board.getValue().setPiece(new Pawn(pieceColor(board.getKey())));
+                entry.getValue().setPiece(new Pawn(pieceColor(entry.getKey())));
             }
         }
     }
 
     public void placePiece(String position, Piece piece) throws Exception {
         piece.setColor(pieceColor(position));
-        board.board.get(position).setPiece(piece);
+        Board.Cell cell = board.getCell(position);
+        cell.setPiece(piece);
+        board.setCell(position, cell);
     }
 }
