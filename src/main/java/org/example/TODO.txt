@@ -1,0 +1,1 @@
+Создать абстрактный класс Board, а от него унаследовать PlayerBoard и BattleBoard.

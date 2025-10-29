@@ -1,45 +1,64 @@
 package org.example;
 
-import org.example.piece.Piece;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
+@Data
 public class GameEngine {
-    @Autowired
-    private Board board;
-    String moveTurn = "White";
+    Player player1;
+    Player player2;
+    Board board1;
+    Board board2;
+    Board mergedBoard = new Board();
 
-    public void pieceMove(String startPosition, String endPosition) throws Exception {
-        Piece piece = board.getCell(startPosition).getPiece();
-        if (piece == null) {
-            System.out.println("На позиции " + startPosition + " нет фигуры");
-            return;
-        }
-        if (!piece.getColor().equals(moveTurn)){
-            System.out.println("Фигура на позиции " + startPosition + " пренадлежит противнику");
-            return;
-        }
-        List<String> acceptedMoves = getAcceptedPieceMove(startPosition);
-        if (!acceptedMoves.contains(endPosition)) {
-            System.out.println("Ход " + endPosition + " не доступен");
-            return;
-        }
-
-        board.getCell(startPosition).setPiece(null);
-        board.getCell(endPosition).setPiece(piece);
-        moveTurn = moveTurn.equals("White") ? "Black" : "White";
+    public GameEngine(Player player1, Player player2) {
+        this.player1 = player1;
+        this.player2 = player2;
+        this.board1 = player1.getBoard();
+        this.board2 = player2.getBoard();
+        mergedBoard = mergeBoards(board1, board2);
     }
 
-    public List<String> getAcceptedPieceMove(String position) throws Exception {
-        List<String> potentialMoves = board.getCell(position).getPiece().getPotentialMoves(position);
-        List<String> acceptedMoves = new ArrayList<>();
-        for (String move : potentialMoves) {
-            if (board.getBoard().containsKey(move)) {
-                acceptedMoves.add(move);
-            }
-        }
-        return acceptedMoves;
+    public Board mergeBoards(Board whitePlayerBoard, Board blackPlayerBoard) {
+        mergedBoard.getBoard().clear();
+        mergedBoard.getBoard().putAll(whitePlayerBoard.getBoard());
+        mergedBoard.getBoard().putAll(boardTransformation(blackPlayerBoard, whitePlayerBoard.getMaxY()).getBoard());
+        return mergedBoard;
     }
+
+    private Board boardTransformation(Board board, int offset) {
+        Board turnedBoard = turnBoard(board);
+        return offsetBoardVertically(turnedBoard, offset);
+    }
+
+
+    private Board turnBoard(Board board) {
+        Map<Position, Board.Cell> turnedBoard = new LinkedHashMap<>();
+        for (Map.Entry<Position, Board.Cell> entry : board.getBoard().entrySet()) {
+            Position position = new Position(
+                    board.getMaxX() - entry.getKey().getX() + 1,
+                    board.getMaxY() - entry.getKey().getY() + 1);
+            turnedBoard.put(position, entry.getValue());
+        }
+        Board newBoard = new Board();
+        newBoard.getBoard().putAll(turnedBoard);
+        return newBoard;
+    }
+
+    private Board offsetBoardVertically(Board board, int offset) {
+        Map<Position, Board.Cell> turnedBoard = new LinkedHashMap<>();
+        for (Map.Entry<Position, Board.Cell> entry : board.getBoard().entrySet()) {
+            Position position = new Position(
+                    entry.getKey().getX(),
+                    entry.getKey().getY() + offset + 1);
+            turnedBoard.put(position, entry.getValue());
+        }
+        Board newBoard = new Board();
+        newBoard.getBoard().putAll(turnedBoard);
+        return newBoard;
+    }
+
+
 }
