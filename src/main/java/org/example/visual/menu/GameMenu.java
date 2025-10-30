@@ -1,4 +1,4 @@
-package org.example.visual;
+package org.example.visual.menu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,26 +12,23 @@ public class GameMenu extends JFrame {
         setResizable(true);
         setLayout(new BorderLayout());
 
-        // Заголовок
         JLabel title = new JLabel("Battle Game", SwingConstants.CENTER);
         title.setFont(new Font("Arial", Font.BOLD, 24));
         add(title, BorderLayout.NORTH);
 
-        // Панель кнопок
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(2, 1, 40, 40));
 
-        JButton play = new JButton("play");
+        JButton play = new JButton("Play");
         JButton exitButton = new JButton("Exit");
+
+        play.addActionListener(new PlayButtonHandler(this));
+        exitButton.addActionListener(new ExitButtonHandler());
 
         buttonPanel.add(play);
         buttonPanel.add(exitButton);
 
         add(buttonPanel, BorderLayout.CENTER);
-
-        // Действия кнопок
-        exitButton.addActionListener(e -> System.exit(0));
-
         setVisible(true);
     }
 }

@@ -30,15 +30,21 @@ public class Board {
         for (int y = 1; y <= height; y++) {
             for (int x = 1; x <= width; x++) {
                 Position position = new Position(x, y);
-                Color color = findCellColor(position);
-                board.put(position, new Cell(color, null));
+                board.put(position, new Cell(colorizeCell(position), null));
             }
+
+        }
+    }
+    public void reColorizeBoard(Map<Position, Cell> board){
+        for (Map.Entry<Position, Cell> entry : board.entrySet()){
+            entry.getValue().setColor(colorizeCell(entry.getKey()));
         }
     }
 
+
     public void addCell(Position position) {
         if (!board.containsKey(position)) {
-            board.put(position, new Cell(findCellColor(position), null));
+            board.put(position, new Cell(colorizeCell(position), null));
         }
     }
 
@@ -50,7 +56,7 @@ public class Board {
         return board.keySet().stream().mapToInt(Position::getY).max().orElse(0);
     }
 
-    public Color findCellColor(Position position) {
+    public Color colorizeCell(Position position) {
         int x = position.getX();
         int y = position.getY();
         return (x + y) % 2 == 0 ? Color.WHITE : Color.BLACK;

@@ -25,6 +25,7 @@ public class GameEngine {
         mergedBoard.getBoard().clear();
         mergedBoard.getBoard().putAll(whitePlayerBoard.getBoard());
         mergedBoard.getBoard().putAll(boardTransformation(blackPlayerBoard, whitePlayerBoard.getMaxY()).getBoard());
+        mergedBoard.reColorizeBoard(mergedBoard.getBoard());
         return mergedBoard;
     }
 
@@ -52,7 +53,7 @@ public class GameEngine {
         for (Map.Entry<Position, Board.Cell> entry : board.getBoard().entrySet()) {
             Position position = new Position(
                     entry.getKey().getX(),
-                    entry.getKey().getY() + offset + 1);
+                    entry.getKey().getY() + offset);
             turnedBoard.put(position, entry.getValue());
         }
         Board newBoard = new Board();

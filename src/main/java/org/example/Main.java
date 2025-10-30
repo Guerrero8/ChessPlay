@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.visual.GameMenu;
+import org.example.visual.menu.GameMenu;
 import org.springframework.context.annotation.ComponentScan;
 
 import javax.swing.*;

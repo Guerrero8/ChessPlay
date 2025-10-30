@@ -3,11 +3,12 @@ package org.example;
 import lombok.Data;
 import org.example.piece.Piece;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class Player {
+public class Player implements Serializable {
     private final String name;
     private final Board board;
     private int action;
