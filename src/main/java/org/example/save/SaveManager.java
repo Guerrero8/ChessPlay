@@ -31,8 +31,8 @@ public class SaveManager {
                 new FileInputStream(SAVE_PATH + saveName + ".sav"))) {
             Save save = (Save) in.readObject();
             return save;
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (IOException | ClassNotFoundException exception) {
+            exception.printStackTrace();
         }
         return null;
     }

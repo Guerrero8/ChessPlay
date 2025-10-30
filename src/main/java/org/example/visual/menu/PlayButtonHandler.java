@@ -7,10 +7,10 @@ import java.awt.event.ActionListener;
 
 public class PlayButtonHandler implements ActionListener {
 
-    private final GameMenu menu;
+    private final GameMenu gameMenu;
 
-    public PlayButtonHandler(GameMenu menu) {
-        this.menu = menu;
+    public PlayButtonHandler(GameMenu gameMenu) {
+        this.gameMenu = gameMenu;
     }
 
     @Override

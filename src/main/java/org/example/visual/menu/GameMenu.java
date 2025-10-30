@@ -2,6 +2,7 @@ package org.example.visual.menu;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class GameMenu extends JFrame {
 
@@ -19,13 +20,15 @@ public class GameMenu extends JFrame {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(2, 1, 40, 40));
 
-        JButton play = new JButton("Play");
+        JButton aContinue = new JButton("Continue");
+        JButton aNewGame = new JButton("NewGame");
         JButton exitButton = new JButton("Exit");
 
-        play.addActionListener(new PlayButtonHandler(this));
+        aContinue.addActionListener(new PlayButtonHandler(this));
+        aNewGame.addActionListener();
         exitButton.addActionListener(new ExitButtonHandler());
 
-        buttonPanel.add(play);
+        buttonPanel.add(aContinue);
         buttonPanel.add(exitButton);
 
         add(buttonPanel, BorderLayout.CENTER);
