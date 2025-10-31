@@ -1,22 +1,23 @@
 package org.example.visual;
 
-import org.example.Board;
-import org.example.GameEngine;
+import org.example.PiecePlacementController;
 import org.example.Player;
-import org.example.Position;
-import org.example.save.SaveManager;
+import org.example.save.SaveController;
+import org.springframework.stereotype.Component;
 
-import java.util.Map;
 
+@Component
 public class GameController {
+    SaveController saveController = new SaveController();
+    PiecePlacementController piecePlacementController = new PiecePlacementController();
 
-    private GameEngine gameEngine;
-    SaveManager saveManager = new SaveManager();
+    public void onContinue(){
+    }
 
-    public void startGame() {
-        Player player1 = new Player("Player 1");
-        saveManager.saveGame("Hi", saveManager.createSave("Hi", player1));
-
-        System.out.println(player1.toString());
+    public void onStartNewGame(String playerName){
+        Player player = new Player(playerName);
+        piecePlacementController.createDefaultPlacement(player);
+        System.out.println(player);
+        // saveController.createSave(playerName, player);
     }
 }

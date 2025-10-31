@@ -4,11 +4,11 @@ import org.example.Player;
 
 import java.io.*;
 
-public class SaveManager {
+public class SaveController {
     private static final String SAVE_PATH = "src/main/java/org/example/save/saves/";
 
-    public Save createSave(String saveName, Player player) {
-        return new Save(saveName, player);
+    public void createSave(String saveName, Player player) {
+        saveGame(saveName, new Save(saveName, player));
     }
 
     public void renameSave (String saveName, Save save){
@@ -22,7 +22,6 @@ public class SaveManager {
         } catch (IOException exception){
             exception.printStackTrace();
         }
-
     }
 
 

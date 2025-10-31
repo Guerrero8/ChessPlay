@@ -27,7 +27,7 @@ public class PlayerQueueController {
     }
 
     public void restoreAllPieceShield(Board board) {
-        for (Map.Entry<Position, Board.Cell> cell : board.getBoard().entrySet()) {
+        for (Map.Entry<Position, Board.Cell> cell : board.getBoardCell().entrySet()) {
             if (cell.getValue().getPiece() != null) {
                 cell.getValue().getPiece().restoreShield();
             }

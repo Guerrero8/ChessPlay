@@ -22,10 +22,10 @@ public class GameEngine {
     }
 
     public Board mergeBoards(Board whitePlayerBoard, Board blackPlayerBoard) {
-        mergedBoard.getBoard().clear();
-        mergedBoard.getBoard().putAll(whitePlayerBoard.getBoard());
-        mergedBoard.getBoard().putAll(boardTransformation(blackPlayerBoard, whitePlayerBoard.getMaxY()).getBoard());
-        mergedBoard.reColorizeBoard(mergedBoard.getBoard());
+        mergedBoard.getBoardCell().clear();
+        mergedBoard.getBoardCell().putAll(whitePlayerBoard.getBoardCell());
+        mergedBoard.getBoardCell().putAll(boardTransformation(blackPlayerBoard, whitePlayerBoard.getMaxY()).getBoardCell());
+        mergedBoard.reColorizeBoard(mergedBoard.getBoardCell());
         return mergedBoard;
     }
 
@@ -37,27 +37,27 @@ public class GameEngine {
 
     private Board turnBoard(Board board) {
         Map<Position, Board.Cell> turnedBoard = new LinkedHashMap<>();
-        for (Map.Entry<Position, Board.Cell> entry : board.getBoard().entrySet()) {
+        for (Map.Entry<Position, Board.Cell> entry : board.getBoardCell().entrySet()) {
             Position position = new Position(
                     board.getMaxX() - entry.getKey().getX() + 1,
                     board.getMaxY() - entry.getKey().getY() + 1);
             turnedBoard.put(position, entry.getValue());
         }
         Board newBoard = new Board();
-        newBoard.getBoard().putAll(turnedBoard);
+        newBoard.getBoardCell().putAll(turnedBoard);
         return newBoard;
     }
 
     private Board offsetBoardVertically(Board board, int offset) {
         Map<Position, Board.Cell> turnedBoard = new LinkedHashMap<>();
-        for (Map.Entry<Position, Board.Cell> entry : board.getBoard().entrySet()) {
+        for (Map.Entry<Position, Board.Cell> entry : board.getBoardCell().entrySet()) {
             Position position = new Position(
                     entry.getKey().getX(),
                     entry.getKey().getY() + offset);
             turnedBoard.put(position, entry.getValue());
         }
         Board newBoard = new Board();
-        newBoard.getBoard().putAll(turnedBoard);
+        newBoard.getBoardCell().putAll(turnedBoard);
         return newBoard;
     }
 

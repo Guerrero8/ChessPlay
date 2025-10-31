@@ -2,10 +2,10 @@ package org.example.piece;
 
 import lombok.Data;
 import lombok.NonNull;
-import org.example.Color;
 import org.example.Player;
 import org.example.Position;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -22,6 +22,7 @@ public abstract class Piece {
     private int shield;
     private int maxShield;
     private int damage;
+    private final String texturePath = "src/main/resources/org/example/texture/King.png";
 
     protected Piece(String type, Player owner, Color color, int maxHp, int armour, int maxShield, int damage) {
         this.id = UUID.randomUUID().toString();
@@ -70,5 +71,20 @@ public abstract class Piece {
     public boolean makeMove(Player player, Position positionFrom, Position positionTo){
         List<Position> availableMoves = new ArrayList<>(getAvailableMoves(positionFrom));
         return availableMoves.contains(positionTo);
+    }
+
+    @Override
+    public String toString() {
+        return "Piece{" +
+                "id='" + id + '\'' +
+                ", type='" + type + '\'' +
+                ", color=" + color +
+                ", hp=" + hp +
+                ", maxHp=" + maxHp +
+                ", armour=" + armour +
+                ", shield=" + shield +
+                ", maxShield=" + maxShield +
+                ", damage=" + damage +
+                '}';
     }
 }

@@ -1,17 +1,18 @@
 package org.example.piece;
 
-import org.example.Color;
 import org.example.Player;
 import org.example.Position;
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class King extends Piece {
+    private final String texturePath = "src/main/resources/org/example/texture/King.png";
 
-    public King(Player owner, Color color) {
-        super("King", owner, color, 20, 2, 5, 2); // hp=20, armour=2, shield=5, damage=2
+    public King(Player owner) {
+        super("King", owner, Color.WHITE, 20, 2, 5, 2); // hp=20, armour=2, shield=5, damage=2
     }
 
     @Override
