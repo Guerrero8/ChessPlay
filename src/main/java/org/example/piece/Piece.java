@@ -22,7 +22,7 @@ public abstract class Piece {
     private int shield;
     private int maxShield;
     private int damage;
-    private final String texturePath = "src/main/resources/org/example/texture/King.png";
+    private final String texturePath = null;
 
     protected Piece(String type, Player owner, Color color, int maxHp, int armour, int maxShield, int damage) {
         this.id = UUID.randomUUID().toString();
